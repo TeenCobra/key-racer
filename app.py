@@ -1,16 +1,19 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
-import mysql.connector
+import psycopg2
+from psycopg2 import errors
+import os
 import time
 
 app = Flask(__name__)
 
 # Connect to MySQL database
 def connect_to_db():
-    return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="mangotree@12345",
-        database="website"
+    return psycopg2.connect(
+        host=os.getenv("dpg-d20ah4h5pdvs73canp80-a"),
+        user=os.getenv("keyracer_user"),
+        password=os.getenv("RuEWknhY3BqGkQ90oz4IUu4ovGHjp1oX"),
+        dbname=os.getenv("keyracer"),
+        port=os.getenv("DB_PORT", 5432)  # default PostgreSQL port
     )
 
 # Function to create users and feedback tables if they don't exist
@@ -29,7 +32,7 @@ def create_tables():
     
     feedback_table_query = """
     CREATE TABLE IF NOT EXISTS feedback (
-        id INT AUTO_INCREMENT PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         message TEXT NOT NULL
     )
@@ -96,7 +99,8 @@ def signup():
         cursor.execute(query, values)
         conn.commit()
         return jsonify({"status": "success", "message": "Now let's play the game!", "redirect": url_for('game'), "username": username})
-    except mysql.connector.IntegrityError:
+    except psycopg2.errors.UniqueViolation:
+    # This error happens if username (primary key) already exists
         return jsonify({"status": "error", "message": "Username already exists, please choose a different one."})
     finally:
         cursor.close()
@@ -192,14 +196,15 @@ def submit_feedback():
 @app.route('/get_feedback', methods=['GET'])
 def get_feedback():
     conn = connect_to_db()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor()
     query = "SELECT name, message FROM feedback"  # Fetch both name and message
     cursor.execute(query)
     feedbacks = cursor.fetchall()
     cursor.close()
     conn.close()
     
-    return {"feedbacks": feedbacks}  # Return both name & message
+    feedback_list = [{"name": row[0], "message": row[1]} for row in feedbacks]
+    return {"feedbacks": feedback_list}  # Return both name & message
 
 if __name__ == "__main__":
     app.run(debug=True)
