@@ -1,0 +1,5 @@
+Flask
+Flask-MySQL
+mysql-connector-python
+gunicorn
+Flask-Login
