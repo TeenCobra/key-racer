@@ -1,0 +1,22 @@
+const words = [
+    "once", "upon", "a", "time", "in", "faraway", "kingdom", "there", "was", "beautiful", "princess", "named", "snow", "white", 
+    "she", "was", "daughter", "of", "kind", "and", "beloved", "king", "queen", "unfortunately", "when", "just", "baby", "her", 
+    "mother", "died", "leaving", "the", "heartbroken", "after", "some", "remarried", "woman", "who", "but", "also", "vain", "wicked", 
+    "new", "had", "magical", "mirror", "that", "would", "ask", "every", "day", "mirror", "mirror", "on", "wall", "is", "fairest", "them", "all", 
+    "always", "reply", "queen", "fair", "land", "pleased", "as", "grew", "older", "became", "more", "one", "answered", "you", "my", 
+    "true", "still", "thousand", "times", "than", "furious", "consumed", "with", "jealousy", "could", "not", "bear", "thought", "anyone", 
+    "being", "so", "devised", "plan", "get", "rid", "ordered", "huntsman", "take", "into", "forest", "kill", "however", "bring", "himself", 
+    "harm", "innocent", "princess", "instead", "let", "go", "fled", "deep", "into", "frightened", "alone", "woods", "found", "small", 
+    "cottage", "belonging", "seven", "dwarfs", "worked", "nearby", "mine", "were", "kind", "hearted", "allowed", "stay", "warning", 
+    "her", "stepmother", "evil", "castle", "again", "no", "compare", "reluctantly", "replied", "poor", "girl", "enraged", "hearing", 
+    "immediately", "set", "out", "find", "herself", "disguised", "old", "peddler", "created", "poisoned", "apple", "put", "anyone", 
+    "ate", "deep", "eternal", "sleep", "traveled", "cottage", "offered", "telling", "magical", "fruit", "make", "even", "trusting", 
+    "naive", "took", "bit", "instantly", "fell", "poison", "effect", "returned", "home", "lying", "unconscious", "heartbroken", 
+    "placed", "glass", "coffin", "hoping", "someday", "might", "come", "awaken", "time", "passed", "eventually", "prince", "who", 
+    "heard", "kindness", "arrived", "saw", "beautiful", "taken", "kissed", "kiss", "broke", "spell", "awoke", "overjoyed", "quickly", 
+    "fell", "love", "invited", "live", "where", "married", "grand", "celebration", "learned", "was", "jealousy", "grew", "once", 
+    "demanded", "see", "furious", "fled", "palace", "fit", "rage", "deeds", "finally", "punished", "chased", "away", "guards", 
+    "happily", "ever", "after", "continued", "work", "mine", "never", "fear", "again", "story", "teaches", "us", "that", "beauty", 
+    "not", "just", "skin", "deep", "her", "innocence", "goodness", "what", "ultimately", "saved", "triumphed", "over", "curses", 
+    "love", "friendship", "powerful", "forces", "capable", "overcoming", "even", "most", "wicked"
+];

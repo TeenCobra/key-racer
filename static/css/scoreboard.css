@@ -1,0 +1,31 @@
+.scoreboard {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+    width: 300px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-family: 'Orbitron', sans-serif;
+    color: #fff;
+}
+
+.scoreboard h1 {
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.score {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #00ffff;
+}
+
+.high-score {
+    font-size: 28px;
+    color: #ffcc00;
+}

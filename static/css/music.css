@@ -1,0 +1,146 @@
+body {
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.5s ease-in-out;
+  }
+  
+  .music-button {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  
+  #music-player {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    z-index: 1000;
+  }
+  
+  .back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .details {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 25px;
+  }
+  
+  .track-art {
+    margin: 15px;
+    height: 100px;
+    width: 100px;
+    background-size: cover;
+    border-radius: 15%;
+  }
+  
+  .now-playing {
+    font-size: 1rem;
+    color: white;
+  }
+  
+  .track-name {
+    font-size: 1.5rem;
+    color: white;
+  }
+  
+  .track-artist {
+    font-size: 1rem;
+    color: white;
+  }
+  
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .playpause-track, .prev-track, .next-track {
+    padding: 10px;
+    opacity: 0.8;
+    transition: opacity .2s;
+  }
+  
+  .playpause-track:hover, .prev-track:hover, .next-track:hover {
+    opacity: 1.0;
+  }
+  
+  .slider_container {
+    width: 75%;
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .seek_slider, .volume_slider {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 5px;
+    background: black;
+    opacity: 0.7;
+    transition: opacity .2s;
+  }
+  
+  .seek_slider::-webkit-slider-thumb, .volume_slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background: white;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  
+  .seek_slider:hover, .volume_slider:hover {
+    opacity: 1.0;
+  }
+  
+  .seek_slider {
+    width: 60%;
+  }
+  
+  .volume_slider {
+    width: 30%;
+  }
+  
+  .current-time, .total-duration {
+    padding: 10px;
+    color: white;
+  }
+  
+  i.fa-volume-down, i.fa-volume-up, i.fa-arrow-left {
+    padding: 10px;
+    color: white;
+  }
+  
+  i.fa-play-circle, i.fa-pause-circle, i.fa-step-forward, i.fa-step-backward {
+    cursor: pointer;
+    color: white;
+  }

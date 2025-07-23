@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Game</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/scoreboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/music.css">
+</head>
+
+<body>
+    <!-- Scoreboard -->
+    <div class="scoreboard">
+        <h1>Scoreboard</h1>
+        <p>Current Score</p>
+        <div class="score" id="current-score">0</div>
+        <p>High Score</p>
+        <div class="high-score" id="high-score">0</div>
+    </div>
+
+    <a class="button" href="/templates/index.html" style="--color:#1e9bff;">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span> <!--Copied from freefrontend.com-->
+        End
+    </a>
+    <div class="game-area">
+        <div id="game-container"></div>
+        <div id="boundary">
+        </div> <!-- This is the boundary -->
+    </div>
+
+    <!-- Small Music Button -->
+    <div class="music-button" onclick="togglePlayer()">
+        <i class="fa fa-music fa-2x"></i>
+    </div>
+
+    <!-- Music Player Bar -->
+    <div class="player" id="music-player">
+        <div class="back-button" onclick="togglePlayer()">
+            <i class="fa fa-arrow-left"></i>
+        </div>
+        <div class="details">
+            <div class="now-playing">PLAYING x OF y</div>
+            <div class="track-art"></div>
+            <div class="track-name">Track Name</div>
+            <div class="track-artist">Track Artist</div>
+        </div>
+        <div class="buttons">
+            <div class="prev-track" onclick="prevTrack()"><i class="fa fa-step-backward fa-2x"></i></div>
+            <div class="playpause-track" onclick="playpauseTrack()"><i class="fa fa-play-circle fa-5x"></i></div>
+            <div class="next-track" onclick="nextTrack()"><i class="fa fa-step-forward fa-2x"></i></div>
+        </div>
+        <div class="slider_container">
+            <div class="current-time">00:00</div>
+            <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+            <div class="total-duration">00:00</div>
+        </div>
+        <div class="slider_container">
+            <i class="fa fa-volume-down"></i>
+            <input type="range" min="1" max="100" value="99" class="volume_slider" onchange="setVolume()">
+            <i class="fa fa-volume-up"></i>
+        </div>
+    </div>
+    <div id="countdown"></div>
+    <script src="/static/js/music.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

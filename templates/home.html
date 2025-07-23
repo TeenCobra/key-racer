@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy Login</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .astronaut {
+            position: absolute;
+            width: 40%;
+            right: -20%;
+            transition: transform 1.5s ease-in-out;
+        }
+
+        .message {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(173, 216, 230, 0.7);
+            box-shadow: 0px 0px 15px rgba(173, 216, 230, 0.7);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+            white-space: pre-line;
+            max-width: 320px;
+            text-align: center;
+        }
+
+
+        .button-container {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+        }
+
+        .button-container button {
+            font-size: 1.2rem;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 8px;
+            border: 2px solid rgba(173,216,230,0.7);
+            cursor: pointer;
+            background: rgb(215, 118, 118);
+            color: blue;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 0px 10px rgba(173,216,230,0.7);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .input-container {
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+        }
+
+        .input-container input {
+            font-size: 1.2rem;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        body {
+            background: url('https://i.gifer.com/7PLX.gif') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="static/images/Intro astro.gif" class="astronaut" id="astronaut">
+        <div class="message" id="message"></div>
+        <div class="button-container" id="button-container">
+            <button id="signin">Sign In</button>
+            <button id="signup">Sign Up</button>
+            <button onclick="window.location.href='templates/game.html'" id="skip">Skip</button>
+        </div>
+        <div class="input-container" id="input-container">
+            <input type="text" id="user-input" placeholder="Enter here...">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const astronaut = document.getElementById("astronaut");
+            const message = document.getElementById("message");
+            const buttonContainer = document.getElementById("button-container");
+            const inputContainer = document.getElementById("input-container");
+            const userInput = document.getElementById("user-input");
+            const signinButton = document.getElementById("signin");
+            const signupButton = document.getElementById("signup");
+            const skipButton = document.getElementById("skip");
+
+            let userStep = 0;
+            let username = "";
+            let password = "";
+            let userName = "";
+            let typingTimeout; // Store timeout reference
+
+            // Move astronaut animation
+            setTimeout(() => {
+                astronaut.style.transform = "translateX(-30vw)";
+            }, 100);
+
+            function showMessage(text, callback = null) {
+                clearTimeout(typingTimeout); // Clear previous typing effect
+                message.innerHTML = "";
+                message.style.opacity = "1";
+                let index = 0;
+
+                function typeEffect() {
+                    if (index < text.length) {
+                        message.innerHTML += text.charAt(index);
+                        index++;
+                        typingTimeout = setTimeout(typeEffect, 50); // Reduced speed for smooth effect
+                    } else if (callback) {
+                        setTimeout(callback, 500);
+                    }
+                }
+
+                typeEffect();
+            }
+
+            setTimeout(() => {
+                showMessage("Hello Gamer!", () => {
+                    showMessage("I am Astro, your \nspace guide!", () => {
+                        showMessage("Do you want to \nSign In, \nSign Up, \nor Skip?", () => {
+                            buttonContainer.style.opacity = "1";
+                        });
+                    });
+                });
+            }, 1600);
+
+            // **SIGN-IN PROCESS**
+            signinButton.addEventListener("click", () => {
+                buttonContainer.style.opacity = "0";
+                showMessage("Enter your username:");
+                inputContainer.style.opacity = "1";
+                userStep = 1;
+            });
+
+            // **SIGN-UP PROCESS**
+            signupButton.addEventListener("click", () => {
+                buttonContainer.style.opacity = "0";
+                showMessage("Can I know your \nname please?");
+                inputContainer.style.opacity = "1";
+                userStep = 3; // Separate step from sign-in
+            });
+
+            userInput.addEventListener("keypress", function (event) {
+                if (event.key === "Enter" && userInput.value.trim() !== "") {
+                    let inputValue = userInput.value.trim();
+                    userInput.value = "";
+
+                    if (userStep === 1) {
+                        // Sign-In: Username
+                        username = inputValue;
+                        showMessage("Enter your password:");
+                        userInput.setAttribute("type", "password");
+                        userStep = 2;
+
+                    } else if (userStep === 2) {
+                        // Sign-In: Password
+                        password = inputValue;
+                        inputContainer.style.opacity = "0";
+                        showMessage("Verifying...");
+
+                        fetch("/signin", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ username, password })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === "success") {
+                                    localStorage.setItem('username', data.username);
+                                    window.location.href = data.redirect;
+                                } else {
+                                    showMessage(data.message, () => {
+                                        buttonContainer.style.opacity = "1";
+                                    });
+                                }
+                            });
+
+                    } else if (userStep === 3) {
+                        // Sign-Up: Name
+                        userName = inputValue;
+                        showMessage(`Nice to meet you, ${userName}! \nNow enter a username.`);
+                        userStep = 4;
+
+                    } else if (userStep === 4) {
+                        // Sign-Up: Username
+                        username = inputValue;
+                        showMessage("Now, please enter \nyour password.");
+                        userInput.setAttribute("type", "password");
+                        userStep = 5;
+
+                    } else if (userStep === 5) {
+                        // Sign-Up: Password
+                        password = inputValue;
+                        inputContainer.style.opacity = "0";
+                        showMessage("Creating account...");
+
+                        fetch("/signup", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ name: userName, username, password })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === "success") {
+                                    localStorage.setItem('username', data.username);
+                                    showMessage("Now let's play the game!", () => {
+                                        window.location.href = data.redirect;
+                                    });
+                                } else {
+                                    showMessage(data.message, () => {
+                                        buttonContainer.style.opacity = "1";
+                                    });
+                                }
+                            });
+                    }
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>
